@@ -1,0 +1,6 @@
+{
+	"name": "github/concatenate",
+	"platforms": ["*"],
+	"bundle": "ts",
+	"files": "*"
+}
