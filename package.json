@@ -1,7 +1,11 @@
 {
-	"description": "BeyondJS AI Server",
 	"name": "@beyond-js/ai-tools",
-	"repository": "https://github.com/beyondjs/ai-tools",
+	"version": "0.0.1",
+	"description": "BeyondJS AI Server",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/beyondjs/ai-tools"
+	},
 	"static": {
 		"includes": [
 			"openapi"
