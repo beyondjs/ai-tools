@@ -1,5 +1,5 @@
 {
-	"name": "http/middleware",
+	"name": "middleware",
 	"platforms": ["node"],
 	"bundle": "ts",
 	"files": "*"

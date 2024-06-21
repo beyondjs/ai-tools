@@ -1,4 +1,4 @@
-# @beyonjs/ai-server - GitHub Commit Module
+# @beyonjs/ai-tools - GitHub Commit Module
 
 This module provides functionality to add multiple files to a GitHub repository in a single commit. The files are read
 from the disk and uploaded to the repository using the GitHub API. This is particularly useful for automating the
@@ -26,7 +26,7 @@ The following example demonstrates how to use this module to add multiple files 
 1. **Import the necessary functions and interfaces:**
 
 ```typescript
-import { addFiles, AddFilesParams } from '@beyonjs/ai-server/github/commit';
+import { addFiles, AddFilesParams } from '@beyonjs/ai-tools/github/commit';
 ```
 
 2. **Prepare the parameters:**

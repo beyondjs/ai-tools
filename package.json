@@ -1,6 +1,6 @@
 {
 	"name": "@beyond-js/ai-tools",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "BeyondJS AI Server",
 	"repository": {
 		"type": "git",
@@ -30,7 +30,7 @@
 				"name": "node",
 				"platform": "node",
 				"ports": {
-					"bundles": "3000"
+					"bundles": "4000"
 				}
 			},
 			{
@@ -40,7 +40,7 @@
 					"compiler": "tsc"
 				},
 				"ports": {
-					"bundles": "3001"
+					"bundles": "4001"
 				}
 			}
 		]

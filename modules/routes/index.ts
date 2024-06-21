@@ -1,6 +1,7 @@
 import type { Application, Request, Response } from 'express';
 import { FilesRoutes } from './files';
 import { GitHubRoutes } from './github';
+import { resolve, join } from 'path';
 
 export /*bundle*/ class Routes {
 	static setup(app: Application) {
@@ -10,3 +11,6 @@ export /*bundle*/ class Routes {
 		GitHubRoutes.setup(app);
 	}
 }
+
+const packageJsonPath = resolve(__dirname, 'package.json');
+export /*bundle*/ const specs = join(packageJsonPath, '..', 'openapi/merged.yaml');

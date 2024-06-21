@@ -1,5 +1,5 @@
 import type { Application, Request, Response as IResponse } from 'express';
-import { validateBearerToken } from '@beyond-js/ai-server/http/middleware';
+import { validateBearerToken } from '@beyond-js/ai-tools/middleware';
 import * as fs from 'fs';
 import { join, dirname } from 'path';
 

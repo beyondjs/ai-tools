@@ -1,97 +1,256 @@
-openapi: 3.0.0
-info:
-    title: AI-Server API
-    description: BeyondJS AI-Server Open AI Specification
-    version: 1.0.0
-servers:
-    - url: https://turbo-spork-pjp6xjj4gpj3rqx-8080.app.github.dev
-paths:
-    /github/tools:
-        get:
-            summary: Concatenate files from a GitHub repository
-            description: >
-                This endpoint concatenates all files from a specified GitHub repository URL and saves the concatenated
-                content into a single file. 
-
-                It requires a GitHub token to be set in the environment variables for authentication.
-            parameters:
-                - in: query
-                  name: baseUrl
-                  required: true
-                  schema:
-                      type: string
-                  description: The base URL of the GitHub repository.
-            responses:
-                '200':
-                    description: Files successfully concatenated
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    message:
-                                        type: string
-                                        example: Files concatenated into concatenated_code.ts
-                '400':
-                    description: Bad request, possibly due to missing or invalid input
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    message:
-                                        type: string
-                                        example: baseUrl is required
-                '500':
-                    description: Internal server error
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    message:
-                                        type: string
-                                        example: Internal server error
-    /files/upload:
-        post:
-            summary: Upload a file
-            operationId: uploadFile
-            requestBody:
-                required: true
-                content:
-                    application/json:
-                        schema:
-                            type: object
-                            properties:
-                                fileName:
-                                    type: string
-                                content:
-                                    type: string
-            responses:
-                '200':
-                    description: File successfully uploaded
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    message:
-                                        type: string
-                '400':
-                    description: Bad request
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    message:
-                                        type: string
-                '500':
-                    description: Internal server error
-                    content:
-                        application/json:
-                            schema:
-                                type: object
-                                properties:
-                                    message:
-                                        type: string
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "AI-Server API",
+    "description": "BeyondJS AI-Server Open AI Specification",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://turbo-spork-pjp6xjj4gpj3rqx-8080.app.github.dev"
+    }
+  ],
+  "paths": {
+    "/github/concatenate": {
+      "get": {
+        "summary": "Concatenate files from a GitHub repository",
+        "description": "This endpoint concatenates all files from a specified GitHub repository URL and saves the concatenated content into a single file. \nIt requires a GitHub token to be set in the environment variables for authentication.\n",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "baseUrl",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The base URL of the GitHub repository."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Files successfully concatenated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Files concatenated into concatenated_code.ts"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request, possibly due to missing or invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "baseUrl is required"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/github/add-files": {
+      "post": {
+        "summary": "Add multiple files to a GitHub repository",
+        "description": "This endpoint adds multiple files to a specified GitHub repository. \nIt requires a GitHub token to be set in the environment variables for authentication.\n",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "repo": {
+                    "type": "object",
+                    "properties": {
+                      "owner": {
+                        "type": "string",
+                        "description": "The owner of the GitHub repository."
+                      },
+                      "name": {
+                        "type": "string",
+                        "description": "The name of the GitHub repository."
+                      }
+                    },
+                    "required": [
+                      "owner",
+                      "name"
+                    ]
+                  },
+                  "branch": {
+                    "type": "string",
+                    "description": "The branch name where the files will be added."
+                  },
+                  "message": {
+                    "type": "string",
+                    "description": "The commit message."
+                  },
+                  "folder": {
+                    "type": "string",
+                    "description": "The relative path of the folder containing the files to be added."
+                  }
+                },
+                "required": [
+                  "repo",
+                  "branch",
+                  "message",
+                  "folder"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Files successfully added and commit created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Files added and commit created successfully."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request, possibly due to missing or invalid input",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Required fields: repo, branch, message, folder"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/files/upload": {
+      "post": {
+        "summary": "Upload a file",
+        "operationId": "uploadFile",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "fileName": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "File successfully uploaded",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
