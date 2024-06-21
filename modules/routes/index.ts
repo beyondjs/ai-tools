@@ -2,7 +2,6 @@ import type { Application, Request, Response } from 'express';
 import { FilesRoutes } from './files';
 import { GitHubRoutes } from './github';
 import { join } from 'path';
-import { findUp } from 'find-up';
 
 export /*bundle*/ class Routes {
 	static setup(app: Application) {
@@ -14,6 +13,7 @@ export /*bundle*/ class Routes {
 }
 
 export /*bundle*/ async function specs() {
+	const { findUp } = await import('find-up');
 	const root = await findUp('ai-tools', { cwd: __dirname, type: 'directory' });
 	return join(root, 'openapi/merged.yaml');
 }
