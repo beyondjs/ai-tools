@@ -1,0 +1,6 @@
+{
+	"name": "files/upload",
+	"platforms": ["node"],
+	"bundle": "ts",
+	"files": "*"
+}

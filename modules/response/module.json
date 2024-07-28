@@ -1,0 +1,6 @@
+{
+	"name": "response",
+	"platforms": ["node", "backend"],
+	"bundle": "ts",
+	"files": "*"
+}

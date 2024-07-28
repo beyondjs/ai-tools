@@ -1,8 +1,8 @@
 const BEE = require('@beyond-js/bee');
 
-BEE('http://localhost:3000', { inspect: 4000 });
+BEE('http://localhost:4002', { inspect: 4000 });
 
-bimport('@beyond-js/ai-server/github/upload')
+bimport('@beyond-js/ai-server/github/add-files')
 	.then(async ({ addFiles }) => {
 		await addFiles({
 			repo: { owner: 'henrybox', name: 'testing-ai-server-github-upload' },
